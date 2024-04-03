@@ -59,3 +59,16 @@ int insert_value(COLUMN* col, void *value)
     col->TL++;
     return 1;
 }
+
+void delete_column(COLUMN **col)
+{
+    for (int i=0; i < (*col)->TL; i++)
+    {
+        free((*col)->data[i]);
+    }
+    free((*col)->data);
+    (*col)->data = NULL;
+    (*col)->titre = NULL;
+    (*col)->index = NULL;
+    free(*col);
+}
