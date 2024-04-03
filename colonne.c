@@ -21,7 +21,7 @@ int insert_value(COLUMN* col, void *value)
     }
     if (col->TL == col->TP)
     {
-        realloc(col, col->TL + 256);
+        realloc(col->data, col->TL + 256);
     }
     switch (col->colonne_type) {
         case UINT:
