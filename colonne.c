@@ -1,112 +1,61 @@
 #include "colonne.h"
 #include <string.h>
-COLUMN *create_column(char* title)
+COLUMN *create_column(ENUM_TYPE type,char* title)
 {
     COLUMN *col = NULL;
     col = (COLUMN*) malloc(sizeof (COLUMN));
     col->titre = title;
     col->TP = 256;
     col->TL = 0;
-    col->Tab = NULL;
+    col->colonne_type = type;
+    col->data = NULL;
+    col->index = NULL;
     return col;
 }
 
-
-int insert_value(COLUMN* col, int value)
+int insert_value(COLUMN* col, void *value)
 {
-    if(col->TL == 0)
+    if (col->TL == 0)
     {
-        col->Tab = malloc(256*sizeof(int));
-        col->TL = 1;
+        col->data = malloc(256 * sizeof (COLUMN));
     }
-    else
+    if (col->TL == col->TP)
     {
-        if (col->TL == col->TP)
-        {
-            int *temp = col->Tab;
-            if (realloc(temp, col->TL + 256) != NULL)
-            {
-                col->Tab = temp;
-            }
-            else
-            {
-                return 0;
-            }
-            col->TP += 256;
-            col->TL ++;
-        }
-        else
-        {
-            col->TL ++;
-        }
+        realloc(col, col->TL + 256);
     }
-    col->Tab[col->TL - 1] = value;
+    switch (col->colonne_type) {
+        case UINT:
+            col->data[col->TL] = (unsigned int*) malloc (sizeof(unsigned int));
+            *((unsigned int*)col->data[col->TL])= *((unsigned int*)value);
+            break;
+        case INT:
+            col->data[col->TL] = (int*) malloc (sizeof(int));
+            *((int*)col->data[col->TL])= *((int*)value);
+            break;
+        case CHAR:
+            col->data[col->TL] = (char*) malloc (sizeof(char));
+            *((char*)col->data[col->TL])= *((char*)value);
+            break;
+        case FLOAT:
+            col->data[col->TL] = (float *) malloc (sizeof(float ));
+            *((float *)col->data[col->TL])= *((float *)value);
+            break;
+        case DOUBLE:
+            col->data[col->TL] = (double *) malloc (sizeof(double ));
+            *((double *)col->data[col->TL])= *((double *)value);
+            break;
+        case STRING:
+            col->data[col->TL] = (char*) malloc (sizeof(char));
+            *((char*)col->data[col->TL])= *((char*)value);
+            break;
+            /*
+        case STRUCTURE:
+            col->data[col->TL] = (void *) malloc (sizeof(void ));
+            *((void *)col->data[col->TL])= *((void *)value);
+            break;
+             */
+
+    }
+    col->TL++;
     return 1;
-}
-
-void delete_column(COLUMN **col)
-{
-    free((*col)->Tab);
-    (*col)->Tab = NULL;
-    free(col);
-}
-
-void print_col(COLUMN* col)
-{
-    for(int i=0; i<col->TL; i++)
-    {
-        printf("[%d] %d\n", i, col->Tab[i]);
-    }
-}
-
-int nb_occ(COLUMN *col, int x)
-{
-    int nb=0;
-    for (int i=0; i<col->TL; i++)
-    {
-        if (col->Tab[i] == x)
-        {
-            nb ++;
-        }
-    }
-    return nb;
-}
-
-int give_val(COLUMN *col, int x)
-{
-    if (x < col->TL)
-    {
-        return col->Tab[x];
-    }
-    else
-    {
-        printf("Il n'y a aucune valeur a la position %d\n(Out of range)\n", x);
-        return 0;
-    }
-}
-
-int supp_x(COLUMN *col, int x)
-{
-    int nb=0;
-    for (int i=0; i<col->TL; i++)
-    {
-        if (col->Tab[i] > x)
-        {
-            nb ++;
-        }
-    }
-    return nb;
-}
-
-int inf_x(COLUMN *col, int x)
-{
-    int nb=0;
-    for (int i=0; i<col->TL; i++)
-    {
-        if (col->Tab[i] < x)
-        {
-            nb ++;
-        }
-    }
-    return nb;
 }
