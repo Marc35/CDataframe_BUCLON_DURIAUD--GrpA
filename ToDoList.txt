@@ -1,3 +1,5 @@
 Problemes :
   - La fonction create col doit retourner un pointeur Null si l'alloc a échouer. Comment faire pour voir si l'alloc a échouée ?
-  - 
+  - La fonction insert doit retourner 0 si l'insert a échouer. Comment le détecter ?
+  - Comment gérer le cas d'une structure dans la fonction insert ?
+  - Comment gérer le cas d'une structure dans la fonction convert ?
