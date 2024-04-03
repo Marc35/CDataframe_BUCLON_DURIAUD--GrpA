@@ -32,5 +32,6 @@ typedef struct{
 
 COLUMN *create_column(ENUM_TYPE type, char* title);
 int insert_value(COLUMN* col, void *value);
+void delete_column(COLUMN **col);
 
 #endif //PROJECT_COLONNE_H
