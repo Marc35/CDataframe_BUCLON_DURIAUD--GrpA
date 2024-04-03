@@ -1,0 +1,3 @@
+Problemes :
+  - La fonction create col doit retourner un pointeur Null si l'alloc a échouer. Comment faire pour voir si l'alloc a échouée ?
+  - 
