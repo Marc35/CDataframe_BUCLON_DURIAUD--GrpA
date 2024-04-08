@@ -1,8 +1,11 @@
-#ifndef PROJECT_COLONNE_H
-#define PROJECT_COLONNE_H
+#ifndef FINALPROJECT_COLONNE_H
+#define FINALPROJECT_COLONNE_H
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
+void prog_test();
 
 enum enum_type
 {
@@ -30,8 +33,13 @@ typedef struct{
     unsigned long long int *index;
 }COLUMN;
 
-COLUMN *create_column(ENUM_TYPE type, char* title);
+
+COLUMN *create_column(ENUM_TYPE type,char* title);
 int insert_value(COLUMN* col, void *value);
 void delete_column(COLUMN **col);
+void convert_value(COLUMN *col, unsigned long long int i, char *str, int size, void *val);
+void print_col(COLUMN* col);
+int nb_occ(COLUMN *col, void *x);
+char* scearch_value(COLUMN *col, int pos_value);
 
-#endif //PROJECT_COLONNE_H
+#endif //FINALPROJECT_COLONNE_H
