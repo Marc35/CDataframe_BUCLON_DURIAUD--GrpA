@@ -2,9 +2,6 @@
 #include "colonne.h"
 
 int main() {
-    printf("Hello, World!\n");
-
-    int test = execute();
-    //printf("Test: %d", test);
+    prog_test();
     return 0;
 }
