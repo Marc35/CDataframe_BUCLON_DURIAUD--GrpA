@@ -144,6 +144,26 @@ void prog_test()
                     test_cdf = create_cdataframe(cdfType, 4);
                 }
                 delete_cdataframe(&test_cdf);
+                printf("Supprimer avec succés\n");
+                break;
+            case 12:
+                if (test_cdf == NULL)
+                {
+                    printf("La fonction va créer un CDataframe car vous n'en avais pas crée\n");
+                    test_cdf = create_cdataframe(cdfType, 4);
+                }
+                printf("Quelle est le nom de la colonne que vous souhaiter supprimer ?\n");
+                scanf(" %s", title);
+                delete_column_cdatafram(test_cdf, title);
+                break;
+            case 13:
+                if (test_cdf == NULL)
+                {
+                    printf("La fonction va créer un CDataframe car vous n'en avais pas crée\n");
+                    test_cdf = create_cdataframe(cdfType, 4);
+                }
+                int nb_col = get_cdataframe_cols_size(test_cdf);
+                printf("Le CDataframe contient actuellement %d colonnes.\n", nb_col);
                 break;
             default:
                 printf("Entrée incomprise !");
