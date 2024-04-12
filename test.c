@@ -1,4 +1,5 @@
 #include "colonne.h"
+#include "cd.h"
 
 /**
  * 1 - create column
@@ -6,6 +7,8 @@
  * 3 - Delete column
  * 4 - Convertir une valeur d'une colonne en string
  * 5 - Afficher les valeurs d'une colonne
+ * 6 - Connaitre le nombres d'occurences d'une valeur donnée dans la conlonne
+ * 7 - Connaitre la valeur rangé a un indice donné dans une colonnez
  * 0 - Test for all functions
  */
 
@@ -17,6 +20,8 @@ void prog_test()
     int new_value=0;
     printf("Hello word 2");
     COLUMN * test = NULL;
+    CDATAFRAME * test_cdf = NULL;
+    ENUM_TYPE cdfType[] = {INT, FLOAT, INT, STRING};
     while (choice != 0) {
         printf("\n\nQuelle fonction voulez vous tester ? \n => Entrez '1' pour creer une colonne \n => Entrez '2' pour inserer une valeur dans la colonne precedemment creee \n => Entrez '3' pour supprimer la colonne precedement creee \n => Entrez '4' pour convertir une valeur d'une colonne en string \n => Entrez '5' pour afficher les valeurs d'une colonne \n => Entrez '0' pour sortie du programme de test \n\n Valeur entree  :  ");
         scanf("%d", &choice);
@@ -49,8 +54,9 @@ void prog_test()
                     test = create_column(INT, "colonne de remplacement");
                 }
                 printf("\nLa colonne precedemment creee va etre supprimee !");
-                printf("\n \n Etat du pointeur de la colonne : %p\n\n", test);
+                printf("\n \n Etat du pointeur de la colonne : %p\n", test);
                 delete_column(&test);
+                printf("Nouv Etat du pointeur de la col : %p\n\n", test);
                 test = NULL;
                 break;
             case 4:
@@ -98,10 +104,46 @@ void prog_test()
                     insert_value(test, &new_value);
                 }
                 int pos=-1;
-                printf("Quelle valeur voulez vous rechercher ??\n");
+                printf("De quel indice de la colonne boulez vous connaitre la valeur ?\n");
                 printf("La colonne contient %d valeurs\n", test->TL);
                 scanf(" %d", &pos);
                 printf("La valeur a la position %d est %s\n", pos, scearch_value(test, pos));
+                break;
+            case 8:
+                if(test == NULL){
+                    printf("Vous n'avez créer de colonne le programme va donc en créer une avant de la rechercher");
+                    test = create_column(INT, "colonne de remplacement");
+                    insert_value(test, &new_value);
+                }
+                printf("A partir de quelle valeur voules-vous rechercher les valeurs suppérieurs ?\n");
+                int nb_vals_supp;
+                scanf(" %d", &nb_vals_supp);
+                int return_supp_val = nb_supp_val(test, &nb_vals_supp);
+                printf("\nIl y  a %d valeur au dessus de la valeur numéro %d\n", return_supp_val, nb_vals_supp);
+                break;
+            case 9:
+                if(test == NULL){
+                    printf("Vous n'avez créer de colonne le programme va donc en créer une avant de la rechercher");
+                    test = create_column(INT, "colonne de remplacement");
+                    insert_value(test, &new_value);
+                }
+                printf("A partir de quelle valeur voules-vous rechercher les valeurs inférieures ?\n");
+                int nb_vals_inf;
+                scanf(" %d", &nb_vals_inf);
+                int return_inf_val = nb_inf_val(test, &nb_vals_inf);
+                printf("\nIl y  a %d valeur en dessous de la valeur numéro %d\n", return_inf_val, nb_vals_inf);
+                break;
+
+            case 10:
+                test_cdf = create_cdataframe(cdfType, 4);
+                break;
+            case 11:
+                if (test_cdf == NULL)
+                {
+                    printf("La fonction va créer un CDataframe car vous n'en avais pas crée\n");
+                    test_cdf = create_cdataframe(cdfType, 4);
+                }
+                delete_cdataframe(&test_cdf);
                 break;
             default:
                 printf("Entrée incomprise !");
