@@ -30,6 +30,12 @@ CDATAFRAME *create_cdataframe(ENUM_TYPE *cdftype, int size)
 }
 
 void delete_cdataframe(CDATAFRAME **cdf){
+    if ((*cdf)->head == NULL)
+    {
+        lst_erase(*cdf);
+        *cdf = NULL;
+        return;
+    }
     MAILLON* maillon = (*cdf)->head;
     MAILLON * maillon_suivant = maillon->next;
     MAILLON *temp = NULL;
@@ -42,5 +48,35 @@ void delete_cdataframe(CDATAFRAME **cdf){
     }
     lst_erase(*cdf);
     *cdf = NULL;
-    cdf = NULL;
+}
+
+void delete_column_cdatafram(CDATAFRAME *cdf, char *col_name){
+    MAILLON *temp = cdf->head;
+    while (temp->next != NULL && strcmp(temp->data->titre, col_name) != 0)
+    {
+        temp = temp->next;
+    }
+    if (temp->next == NULL && strcmp(temp->data->titre, col_name) != 0)
+    {
+        printf("La colonne %s n'a pas été trouvée", col_name);
+    }
+    else
+    {
+        delete_column(&(temp->data));
+        lst_delete_MAILLON(cdf, temp);
+    }
+}
+
+int get_cdataframe_cols_size(CDATAFRAME *cdf)
+{
+    int cpt=0;
+    MAILLON *temp = cdf->head;
+    while (temp->next != NULL)
+    {
+
+        temp = temp->next;
+        cpt++;
+    }
+    cpt++;
+    return cpt;
 }
