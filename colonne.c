@@ -93,6 +93,8 @@ void delete_column(COLUMN **col)
     (*col)->titre = NULL;
     (*col)->index = NULL;
     free(*col);
+    *col = NULL;
+    col = NULL;
 }
 
 void convert_value(COLUMN *col, unsigned long long int i, char *str, int size, void *val)
@@ -188,3 +190,38 @@ char* scearch_value(COLUMN *col, int pos_value)
         return "impossible a trouver car la colonne comporte moins de valeurs";
     }
 }
+
+int nb_supp_val(COLUMN *col, void *x)
+{
+    int nb=0;
+    char str[5];
+    char val[5];
+    convert_value(col, 0, val, 5, x);
+    for (int i=0; i<col->TL; i++)
+    {
+        convert_value(col, i, str, 5, NULL);
+        if (strcmp(str, val) > 0)
+        {
+            nb++;
+        }
+    }
+    return nb;
+}
+
+int nb_inf_val(COLUMN *col, void *x)
+{
+    int nb=0;
+    char str[5];
+    char val[5];
+    convert_value(col, 0, val, 5, x);
+    for (int i=0; i<col->TL; i++)
+    {
+        convert_value(col, i, str, 5, NULL);
+        if (strcmp(str, val) < 0)
+        {
+            nb++;
+        }
+    }
+    return nb;
+}
+
