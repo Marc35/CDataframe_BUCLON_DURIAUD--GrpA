@@ -84,9 +84,12 @@ int insert_value(COLUMN* col, void *value)
 
 void delete_column(COLUMN **col)
 {
-    for (int i=0; i < (*col)->TL; i++)
+    if ((*col)->data != NULL)
     {
-        free((*col)->data[i]);
+        for (int i=0; i < (*col)->TL; i++)
+        {
+            free((*col)->data[i]);
+        }
     }
     free((*col)->data);
     (*col)->data = NULL;
@@ -94,7 +97,6 @@ void delete_column(COLUMN **col)
     (*col)->index = NULL;
     free(*col);
     *col = NULL;
-    col = NULL;
 }
 
 void convert_value(COLUMN *col, unsigned long long int i, char *str, int size, void *val)
