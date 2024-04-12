@@ -41,5 +41,7 @@ void convert_value(COLUMN *col, unsigned long long int i, char *str, int size, v
 void print_col(COLUMN* col);
 int nb_occ(COLUMN *col, void *x);
 char* scearch_value(COLUMN *col, int pos_value);
+int nb_supp_val(COLUMN *col, void *x);
+int nb_inf_val(COLUMN *col, void *x);
 
 #endif //FINALPROJECT_COLONNE_H
