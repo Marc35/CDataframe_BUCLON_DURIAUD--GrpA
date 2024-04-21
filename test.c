@@ -23,7 +23,7 @@ void prog_test()
     CDATAFRAME * test_cdf = NULL;
     ENUM_TYPE cdfType[] = {INT, FLOAT, INT, STRING};
     while (choice != 0) {
-        printf("\n\nQuelle fonction voulez vous tester ? \n => Entrez '1' pour creer une colonne \n => Entrez '2' pour inserer une valeur dans la colonne precedemment creee \n => Entrez '3' pour supprimer la colonne precedement creee \n => Entrez '4' pour convertir une valeur d'une colonne en string \n => Entrez '5' pour afficher les valeurs d'une colonne \n => Entrez '0' pour sortie du programme de test \n\n Valeur entree  :  ");
+        printf("\n\nQuelle fonction voulez vous tester ? \n => Entrez '1' pour creer une colonne \n => Entrez '2' pour inserer une valeur dans la colonne precedemment creee \n => Entrez '3' pour supprimer la colonne precedement creee \n => Entrez '4' pour convertir une valeur d'une colonne en string \n => Entrez '5' pour afficher les valeurs d'une colonne \n => Entrez '6' pour afficher le nombre d'occurence d'une valeur dans une colonne \n => Entrez '7' pour connaitre la valeur a un indice donné dans la colonne \n => Entrez '8' pour afficher le nombre de valeur au dessus d'une valeur donnee dans une colonne \n => Entrez '9' pour afficher le nombre de valeur en dessous d'une valeur donnee dans une colonne \n => Entrez '10' pour creer un CDataframe \n => Entrez '11' pour supprimer un CDataframe \n => Entrez '12' pour supprimer une colonne d'un CDataframe \n => Entrez '13' pour connaitre le nombre de colonnes d'un CDataframe \n => Entrez '0' pour sortie du programme de test \n\n Valeur entree  :  ");
         scanf("%d", &choice);
 
         switch (choice) {
