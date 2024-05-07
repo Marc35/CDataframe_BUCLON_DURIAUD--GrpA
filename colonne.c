@@ -20,7 +20,7 @@ int insert_value(COLUMN* col, void *value)
 {
     if (col->TL == 0)
     {
-        col->data = malloc(256 * sizeof (COLUMN));
+        col->data = malloc(256 * sizeof (COL_TYPE));
         if (col->data == NULL)
         {
             return 0;
@@ -110,7 +110,9 @@ void convert_value(COLUMN *col, unsigned long long int i, char *str, int size, v
 {
     void *to_find;
     if (val == NULL)
+    {
         to_find = col->data[i];
+    }
     else
     {
         to_find = val;
@@ -154,7 +156,7 @@ void print_col(COLUMN* col)
 {
     for(int i=0; i<col->TL; i++)
     {
-        char str[5];
+        char str[50];
         convert_value(col, i, str, 5, NULL);
         printf("[%d] %s\n", i, str);
     }
@@ -188,8 +190,7 @@ char* scearch_value(COLUMN *col, int pos_value)
     }
     else
     {
-        //strcpy(str, erreur);
-        return "impossible a trouver car la colonne comporte moins de valeurs";
+        return "Il n'y a pas de valeur à cet emplacement\n";
     }
 }
 
