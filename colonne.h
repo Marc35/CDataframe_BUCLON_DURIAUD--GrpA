@@ -35,13 +35,14 @@ typedef struct{
 
 
 COLUMN *create_column(ENUM_TYPE type,char* title);
-int insert_value(COLUMN* col, void *value);
+int insert_value(COLUMN* col, void *value, int ind_pos);
 void delete_column(COLUMN **col);
 void convert_value(COLUMN *col, unsigned long long int i, char *str, int size, void *val);
 void print_col(COLUMN* col);
-int nb_occ(COLUMN *col, void *x);
+int nb_occ(COLUMN *col, void *x, int is_str);
 char* scearch_value(COLUMN *col, int pos_value);
-int nb_supp_val(COLUMN *col, void *x);
-int nb_inf_val(COLUMN *col, void *x);
+int nb_supp_val(COLUMN *col, void *x, int is_str);
+int nb_inf_val(COLUMN *col, void *x, int is_str);
+int suppr_val_col(COLUMN *col, int pos);
 
 #endif //FINALPROJECT_COLONNE_H
