@@ -16,8 +16,12 @@ COLUMN *create_column(ENUM_TYPE type,char* title)
     return col;
 }
 
-int insert_value(COLUMN* col, void *value)
+int insert_value(COLUMN* col, void *value, int ind_pos)
 {
+    if (ind_pos <= -1 || ind_pos > col->TL)
+    {
+        ind_pos = col->TL;
+    }
     if (col->TL == 0)
     {
         col->data = malloc(256 * sizeof (COL_TYPE));
@@ -48,34 +52,54 @@ int insert_value(COLUMN* col, void *value)
         switch (col->colonne_type) {
             case UINT:
                 col->data[col->TL] = (unsigned int *) malloc(sizeof(unsigned int));
-                *((unsigned int *) col->data[col->TL]) = *((unsigned int *) value);
+                for (int i=col->TL; i>ind_pos; i--)
+                {
+                    *((unsigned int *) col->data[i]) = *((unsigned int *) col->data[i-1]);
+                }
+                *((unsigned int *) col->data[ind_pos]) = *((unsigned int *) value);
                 break;
             case INT:
                 col->data[col->TL] = (int *) malloc(sizeof(int));
-                *((int *) col->data[col->TL]) = *((int *) value);
+                for (int i=col->TL; i>ind_pos; i--)
+                {
+                    *((int *) col->data[i]) = *((int *) col->data[i-1]);
+                }
+                *((int *) col->data[ind_pos]) = *((int *) value);
                 break;
             case CHAR:
                 col->data[col->TL] = (char *) malloc(sizeof(char));
-                *((char *) col->data[col->TL]) = *((char *) value);
+                for (int i=col->TL; i>ind_pos; i--)
+                {
+                    *((char *) col->data[i]) = *((char *) col->data[i-1]);
+                }
+                *((char *) col->data[ind_pos]) = *((char *) value);
                 break;
             case FLOAT:
                 col->data[col->TL] = (float *) malloc(sizeof(float));
-                *((float *) col->data[col->TL]) = *((float *) value);
+                for (int i=col->TL; i>ind_pos; i--)
+                {
+                    *((float *) col->data[i]) = *((float *) col->data[i-1]);
+                }
+                printf("test0\n");
+                *((float *) col->data[ind_pos]) = *((float *) value);
+                printf("test1\n");
                 break;
             case DOUBLE:
                 col->data[col->TL] = (double *) malloc(sizeof(double));
-                *((double *) col->data[col->TL]) = *((double *) value);
+                for (int i=col->TL; i>ind_pos; i--)
+                {
+                    *((double *) col->data[i]) = *((double *) col->data[i-1]);
+                }
+                *((double *) col->data[ind_pos]) = *((double *) value);
                 break;
             case STRING:
                 col->data[col->TL] = (char *) malloc(sizeof(char));
-                strcpy((char *) col->data[col->TL], (char *) value);
+                for (int i=col->TL; i>ind_pos; i--)
+                {
+                    strcpy((char *) col->data[i], (char *) col->data[i-1]);
+                }
+                strcpy((char *) col->data[ind_pos], (char *) value);
                 break;
-            /*
-        case STRUCTURE:
-            col->data[col->TL] = (void *) malloc (sizeof(void ));
-            *((void *)col->data[col->TL])= *((void *)value);
-            break;
-             */
         }
     }
     col->TL++;
@@ -117,7 +141,7 @@ void convert_value(COLUMN *col, unsigned long long int i, char *str, int size, v
     {
         to_find = val;
     }
-    if (col->data[i] == NULL)
+    if (to_find == NULL)
     {
         strcpy(str, "NULL");
     }
@@ -162,12 +186,15 @@ void print_col(COLUMN* col)
     }
 }
 
-int nb_occ(COLUMN *col, void *x)
+int nb_occ(COLUMN *col, void *x, int is_str)
 {
     int nb=0;
     char str[5];
     char val[5];
-    convert_value(col, 0, val, 5, x);
+    if (is_str == 0)
+        convert_value(col, 0, val, 5, x);
+    else
+        strcpy(val, x);
     for (int i=0; i<col->TL; i++)
     {
         convert_value(col, i, str, 5, NULL);
@@ -194,12 +221,15 @@ char* scearch_value(COLUMN *col, int pos_value)
     }
 }
 
-int nb_supp_val(COLUMN *col, void *x)
+int nb_supp_val(COLUMN *col, void *x, int is_str)
 {
     int nb=0;
     char str[5];
     char val[5];
-    convert_value(col, 0, val, 5, x);
+    if (is_str == 0)
+        convert_value(col, 0, val, 5, x);
+    else
+        strcpy(val, x);
     for (int i=0; i<col->TL; i++)
     {
         convert_value(col, i, str, 5, NULL);
@@ -211,12 +241,15 @@ int nb_supp_val(COLUMN *col, void *x)
     return nb;
 }
 
-int nb_inf_val(COLUMN *col, void *x)
+int nb_inf_val(COLUMN *col, void *x, int is_str)
 {
     int nb=0;
     char str[5];
     char val[5];
-    convert_value(col, 0, val, 5, x);
+    if (is_str == 0)
+        convert_value(col, 0, val, 5, x);
+    else
+        strcpy(val, x);
     for (int i=0; i<col->TL; i++)
     {
         convert_value(col, i, str, 5, NULL);
@@ -226,5 +259,26 @@ int nb_inf_val(COLUMN *col, void *x)
         }
     }
     return nb;
+}
+
+int suppr_val_col(COLUMN *col, int pos)
+{
+    if (pos >= col->TL)
+    {
+        return 0;
+    }
+    else
+    {
+        for (int i=pos; i < col->TL-1; i++)
+        {
+            if (col->colonne_type == STRING)
+                strcpy(col->data[i], col->data[i+1]);
+            else
+                *col->data[i] = *col->data[i+1];
+        }
+        free(col->data[col->TL-1]);
+        col->TL--;
+        return 1;
+    }
 }
 
