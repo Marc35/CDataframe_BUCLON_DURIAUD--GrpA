@@ -80,7 +80,7 @@ ENUM_TYPE choose_type_col()
 {
     ENUM_TYPE type;
     printf("Quel type voulez vous pour votre colonne\n");
-    printf("Rentrer :\n 2 : Pour des UNIT\n 3 : Pour des INT\n");
+    printf("Rentrer :\n 2 : Pour des UNIT\n 3 : Pour des INT\n 4 : Pour des CHAR\n 5 : Pour des FLOAT\n 6 : Pour des DOUBLE\n 7 : Pour des STRING\n Votre choix : ");
     scanf(" %d", &type);
     return type;
 }
