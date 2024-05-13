@@ -24,5 +24,7 @@ void acces_value_CDataFrame(CDATAFRAME* cdf, int pos_col, int pos_ligne);
 int nb_sup_value_CD(CDATAFRAME *cdf, char* value);
 int nb_inf_value_CD(CDATAFRAME *cdf, char* value);
 int suppr_ligne_CD(CDATAFRAME *cdf, int pos);
+CDATAFRAME* load_from_csv(char *file_name, ENUM_TYPE *dftype, int size);
+int save_into_csv(CDATAFRAME *cdf, char *file_name);
 
 #endif //FINALPROJECT_CD_H
