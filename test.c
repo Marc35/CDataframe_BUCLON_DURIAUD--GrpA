@@ -21,6 +21,7 @@
 void prog_test()
 {
     //int check;g
+    char titre_fichier[100];
     int choice=-1, choice_1, choice_2;
     char* title = (char*) malloc(50 * sizeof(char));
     char new_value[50];
@@ -356,6 +357,26 @@ void prog_test()
                                 printf("La suppréssion a bien été efféctuée sur %d colones\n", nb_val_suppr);
                             else
                                 printf("Il n'y a pas assez de lignes dans le CDataframe\n");
+                            break;
+                        case 17:
+                            if (test_cdf == NULL) {
+                                printf("La fonction va créer un CDataframe car vous n'en n'avez pas crée\n");
+                                test_cdf = create_cdataframe(cdfType, 4);
+                            }
+
+                            printf("Quel nom voulez vous pour votre fichier ?\n");
+                            scanf(" %s", titre_fichier);
+                            save_into_csv(test_cdf, titre_fichier);
+                            break;
+                        case 18:
+                            printf("Quel est le nom du fichier que vous voulez charger ?\n");
+                            scanf(" %s", titre_fichier);
+                            printf("g scanf\n");
+                            test_cdf = load_from_csv(titre_fichier, cdfType, 4);
+                            if (test_cdf != NULL)
+                                printf("Récupération terminée\n");
+                            else
+                                printf("La récupération n'a pas marché\n");
                             break;
                         default:
                             printf("Entrée incomprise !");
