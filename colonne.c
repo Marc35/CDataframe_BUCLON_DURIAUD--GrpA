@@ -6,7 +6,8 @@ COLUMN *create_column(ENUM_TYPE type,char* title)
     col = (COLUMN*) malloc(sizeof (COLUMN));
     if (col != NULL)
     {
-        col->titre = title;
+        col->titre = malloc((strlen(title) +1) * sizeof (char));
+        strcpy(col->titre, title);
         col->TP = 256;
         col->TL = 0;
         col->colonne_type = type;
@@ -117,6 +118,7 @@ void delete_column(COLUMN **col)
     }
     free((*col)->data);
     (*col)->data = NULL;
+    free((*col)->titre);
     (*col)->titre = NULL;
     (*col)->index = NULL;
     free(*col);
