@@ -390,3 +390,107 @@ int suppr_ligne_CD(CDATAFRAME *cdf, int pos)
     }
     return cpt;
 }
+
+CDATAFRAME* load_from_csv(char *file_name, ENUM_TYPE *dftype, int size)
+{
+    char line[1000];
+    char *data = NULL;
+
+    FILE *fichier = fopen(file_name, "r");
+    if (fichier == NULL)
+    {
+        printf("Ouverture impossible\n");
+        return NULL;
+    }
+
+    CDATAFRAME *cdf = lst_create_list();
+    MAILLON *temp=NULL;
+    COLUMN *col = NULL;
+
+    fgets(line, sizeof(line), fichier);
+    data = strtok(line,";");
+    for (int i=0; i < size; i++)
+    {
+        printf("%s\n", data);
+        col = create_column(dftype[i], data);
+        temp = lst_create_maillon(col);
+        lst_insert_tail(cdf, temp);
+        data = strtok(NULL, ";");
+    }
+
+    temp = cdf->head;
+    COL_TYPE **val=NULL;
+    val = malloc(sizeof (COL_TYPE));
+    while (fgets(line, sizeof(line), fichier))
+    {
+        data = strtok(line,";");
+        while(temp != NULL) {
+            if (strcmp(data, " ") != 0) {
+                cast_val(temp->data, val, data);
+                insert_value(temp->data, val[0], -1);
+            }
+            data = strtok(NULL,";");
+            temp = temp->next;
+        }
+        printf("\n");
+        temp = cdf->head;
+    }
+    return cdf;
+}
+
+int save_into_csv(CDATAFRAME *cdf, char *file_name)
+{
+    FILE *fichier = fopen(file_name, "w");
+    if (fichier == NULL)
+    {
+        printf("Ouverture impossible\n");
+        return 0;
+    }
+
+    MAILLON *temp = cdf->head;
+    char str[100];
+    while (temp != NULL) {
+        fputs(temp->data->titre, fichier);
+        fputc(';', fichier);
+        temp = temp->next;
+    }
+    fprintf(fichier, "\n");
+    temp = cdf->head;
+    for (int i=0; i< get_cdataframe_nb_lignes(cdf); i++)
+    {
+        while (temp != NULL) {
+            if (i < temp->data->TL) {
+                convert_value(temp->data, i, str, 100, NULL);
+                fputs(str, fichier);
+            }
+            else
+            {
+                fputc(' ', fichier);
+            }
+            fputc(';', fichier);
+            temp = temp->next;
+        }
+        fprintf(fichier, "\n");
+        temp = cdf->head;
+    }
+    fclose(fichier);
+    return 1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
