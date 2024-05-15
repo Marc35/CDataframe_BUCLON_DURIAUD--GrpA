@@ -111,18 +111,23 @@
 
    -> Pour implémenter les fonctions du CDataFrame, nous avons utilisé toutes les fonction déclarés dans liste.h, et données dans la consigne du projet. 
 
-    - _tokenisation :_
-        - Appellation : tokenisation(text)
-        - Description : Minimize le texte passé en paramètre et enlève de celui-ci tout les caractères spéciaux
-        - Paramètre : STR: une chaîne de caractères contenant une phrase
-        - Retourne : list: une liste contenant chaque mot du texte sans accent, ni majuscules, ni ponctuation
+    - _create_cdataframe :_
+        - Appellation : create_cdataframe(ENUM_TYPE type, nb_colonnes)
+        - Description : Retourne un pointeur sur un CDataFrame personnalisé par l'utilisateur (nb de colonne, position, noms des colonnes, types et valeurs ...)
+        - Paramètre :
+          1. Type stocké dans les premières colonnes créés dans le CDataFrame
+          2. Nombre de colonne à créer pour initialiser le CDataFrame, basé sur le type demande ci-dessus
+        - Retourne : Un pointeur sur le CDataFrame créé par l'utilisateur.
           
-    - _regr :_
-        - Appellation : regr(l, sep)
-        - Description : Change une liste de mot en une chaine de caractères
-        - Paramètre : List: une liste contenant des chaines de caractères
-                    : STR: Une chaîne de caractère qui ne contiendra un caractère qui fera office de séparateur
-        - Retourne : STR: une chaîne de caractères qui contiendra tout les mots de la liste avec entre chacun un caractère donné
+    - _insert_col_cdataframe :_
+        - Appellation : insert_col_cdataframe(*CDataFrame, ENUM_TYPE type, *titre, position_colonne)
+        - Description : Permet de créer et insérer une colonne dans un CDataFrame à un indice donné
+        - Paramètre :
+          1. Pointeur sur le CDataFrame auquel ajouter une colonne
+          2. Type des valeurs à stocker dans la nouvelle colonne créée
+          3. Titre de la nouvelle colonne à ajouter dans le CDataFrame
+          4. Position dans le CDataFrame auquelle ajouter la nouvelle colonne 
+        - Retourne : Rien
           
 
       
