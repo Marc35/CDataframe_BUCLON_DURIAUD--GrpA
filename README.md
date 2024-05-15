@@ -53,8 +53,12 @@
 
     - _nb_occ :_
         - Appellation : nb_occ(*colonne, *valeur_à_rechercher, is_str)
-        - Description : Permet
-        - Paramètre : une chaine de caractère contenant un chemin d'accès vers dossier source et un un chemin d'accès vers un dossier final
+        - Description : Permet de retourner le nombre d'occurences d'une valeur de n'importe quelle type dans n'importe quelle colonne, donnée dans l'appel de la fonction.
+          Le paramètre is_str sert pour d'autre fonctions internes utilisant cette fonction. 
+        - Paramètre : 
+        1. Pointeur sur la colonne à étudier
+        2. Pointeur sur la valeur à rechercher dans la colonne
+        3. Donne si la valeur à rechercher est un string. Sert principalement pour d'autres fonctions.
         - Retourne : Rien
 
     - _scearch_value :_
@@ -65,12 +69,31 @@
               2. Entier positif donnant l'indice de la valeur à aller chercher. 
         - Retourne : Un pointeur sur une donnée de type char. 
           
-    - _supp_SpeCara :_
-        - Appellation : suppr_SpeCara() PS : normalement on ne l'appel pas car elle est juste une composante d'une autre fonction
-        - Description : Permet d'enlever les caractères spéciaux d'un texte comme (', é, è, ù, ...) avec un traitement particulier pour l'apostrophe par l'appel de la fonction apostrophe(). La fonction va réécrire les fichiers qu'elle étudie sans les caractères spéciaux. ATTENTION : la fonction prendra toujours les fichiers du dossier cleaned
-        - Paramètre : Rien
-        - Retourne : Rien, elle va réécrire les fichiers sans les caractères spéciaux
+    - _nb_supp_val :_
+        - Appellation : nb_supp_val(*colonne, *valeur_à_comparer, is_str)
+        - Description : Fonction retournant le nombre de valeurs suppérieurs à une autre dans une colonne. Compare les valeurs en les convertissant sous forme de str.
+        - Paramètre :
+          1. Pointeur sur la colonne à étudier.
+          2. Pointeur sur la valeur à comparer dans la colonne
+          3. Donne si la valeur à rechercher est un string. Sert principalement pour d'autres fonctions.
+        - Retourne : Le nombre de valeurs supérieurs à la valeur donnée en paramètre dans la colonne donnée également en paramètre. 
 
+    - _nb_inf_val :_
+        - Appellation : nb_inf_val(*colonne, *valeur_à_comparer, is_str)
+        - Description : Fonction retournant le nombre de valeurs inféieurs à une autre dans une colonne. Compare les valeurs en les convertissant sous forme de str.
+        - Paramètre :
+          1. Pointeur sur la colonne à étudier.
+          2. Pointeur sur la valeur à comparer dans la colonne
+          3. Donne si la valeur à rechercher est un string. Sert principalement pour d'autres fonctions.
+        - Retourne : Le nombre de valeurs inféieurs à la valeur donnée en paramètre dans la colonne donnée également en paramètre.
+     
+    - _suppr_val_col :_
+        - Appellation : suppr_val_col(*colonne, position)
+        - Description : Permet de suprimer une valeur dans une colonne avec son indice (ré-allout l'espace et diminue la colonne d'1)
+        - Paramètre :
+          1. Pointeur sur la colonne sur laquelle supprimer une valeur
+          2. Indice de la valeur à supprimer
+        - Retourne : Retourne 1 si la valeurs à bien réussie à être supprimé, 0 sinon (si l'indice ne possède pas de valeur)
 
 2. ### **Fonctions de tri des colonnes**
     - _Fonctionalité n°1 :_
@@ -79,16 +102,15 @@
         - Paramètre : Rien
         - Retourne : Une liste des mots non importants
 
-    - _Fonctionalité n°2 :_
-        - Appellation : highest_tfidf(directory)
-        - Description : Permet de donner le mots qui a le TFIDF le plus élever de tous les mots de tous les documents contenu dans le dossier passé en paramètre
-        - Paramètre : une chaine de caractère contenant un chemin d'accès vers le dossier souhaité PS : établi par défaud sur le dossier cleaned
-        - Retourne : Le mot avec le TFIDF le plus élevé
+
 
 
      
 # Implémentation du CDataFrame
 1. ### **Fonctions liées au CDataFrame**
+
+   -> Pour implémenter les fonctions du CDataFrame, nous avons utilisé toutes les fonction déclarés dans liste.h, et données dans la consigne du projet. 
+
     - _tokenisation :_
         - Appellation : tokenisation(text)
         - Description : Minimize le texte passé en paramètre et enlève de celui-ci tout les caractères spéciaux
