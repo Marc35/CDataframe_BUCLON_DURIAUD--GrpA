@@ -274,7 +274,6 @@
        
 2. ### **Fonction supplémentaires ('help_functions.c')**
 
--
        
       - _choose_type_col :_
         - Appellation : choose_type_col() (PS : fonction destinée pour aérer d'autres fonctions, ne s'appelle pas autrement)
