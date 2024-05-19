@@ -217,8 +217,77 @@
           2. Entier spécifiant la colonne de la valeur à remplacer
           3. Entier spécifiant la ligne de la valeur à remplacer
         - Retourne : Rien
-          
+       
+      - _nb_sup_value_CD :_
+        - Appellation : nb_sup_value_CD(*CDataFrame, *valeur à comparer)
+        - Description : Permet de donner le nombre de valeur supérieur à une valeur de n'importe quel type spécifié en paramètre dans un CDataFrame, spécifié également en paramètre
+        - Paramètre :
+          1. Pointeur sur le CDataFrame à étudier
+          2. Pointeur (de n'importe quel type) sur la valeur à comparer
+        - Retourne : Entier spécifiant le nombre de valeurs, supérieur à celle entrée en paramètre, trouvées dans le CDataFrame
+       
+      - _nb_inf_value_CD :_
+        - Appellation : nb_inf_value_CD(*CDataFrame, *valeur à comparer)
+        - Description : Permet de donner le nombre de valeur inférieur à une valeur de n'importe quel type spécifié en paramètre dans un CDataFrame, spécifié également en paramètre
+        - Paramètre :
+          1. Pointeur sur le CDataFrame à étudier
+          2. Pointeur (de n'importe quel type) sur la valeur à comparer
+        - Retourne : Entier spécifiant le nombre de valeurs, inférieur à celle entrée en paramètre, trouvées dans le CDataFrame
+       
+      - _suppr_ligne_CD :_
+        - Appellation : suppr_ligne_CD(*CDataFrame, position_ligne)
+        - Description : Permet de supprimer une ligne de valeur au CDataFrame à l'indice voulus
+        - Paramètre :
+          1. Pointeur sur le CDataFrame auquel supprimer une ligne
+          2. Entier spécifiant l'indice de la ligne à supprimer
+        - Retourne : Le nombre de valeur supprimées
+
+      - _nb_sup_value_CD :_
+        - Appellation : nb_sup_value_CD(*CDataFrame, *valeur à comparer)
+        - Description : Permet de donner le nombre de valeur supérieur à une valeur de n'importe quel type spécifié en paramètre dans un CDataFrame, spécifié également en paramètre
+        - Paramètre :
+          1. Pointeur sur le CDataFrame à étudier
+          2. Pointeur (de n'importe quel type) sur la valeur à comparer
+        - Retourne : Entier spécifiant le nombre de valeurs, supérieur à celle entrée en paramètre, trouvées dans le CDataFrame   
 
       
 # CDataFrame et fichiers
 1. ### **Fonction liées à l'enregistrement/exportation dans des fichiers (.CVS)**
+
+      - _load_from_csv :_
+        - Appellation : load_from_csv(*nom_fichier_CDataFrame, ENUM_TYPE *dftype, taille_CDataFrame)
+        - Description : Permet d'upload un CDataFrame à partir d'un fichier CSV
+        - Paramètre :
+          1. Pointeur (char) sur le nom du fichier à partir duquel upload le CDF
+          2. Pointeur (ENUM_TYPE) sur le type de valeur auquelles composer le CDataFrame
+          3. Entier spécifiant la taille (en colonne) maximum du CDataFrame
+        - Retourne : Pointeur sur le CDataFrame upload à partir du fichier donné en paramètre
+       
+      - _save_into_csv :_
+        - Appellation : save_into_csv(*CDataFrame, *nom_fichier)
+        - Description : Permet de sauvegarder un CDataFrame dans un fichier CSV dont le nom est donné en paramètre
+        - Paramètre :
+          1. Pointeur sur le CDataFrame à sauvegarder dans un fichier CSV
+          2. Pointeur (char) sur le nom du fichier à utiliser pour sauvegarder le CDataFrame
+        (PS: Le fichier utilisé est vidé lors de la sauvegarde, si un CDataFrame était déja sauvegardé celui-ci est écrasé)
+        - Retourne : 1 si la sauvegarder c'est bien éffectué, 0 sinon (ouverture du fichier impossible)
+       
+2. ### **Fonction supplémentaires ('help_functions.c')**
+
+-
+       
+      - _choose_type_col :_
+        - Appellation : choose_type_col() (PS : fonction destinée pour aérer d'autres fonctions, ne s'appelle pas autrement)
+        - Description : Permet à l'utilisateur de choisir un type pour sa colonne (via le type structure ENUM_TYPE)
+        - Paramètre :
+          Aucun
+        - Retourne : Un type ENUM_TYPE donnant le type choisis par l'utilisateur pour sa colonne, son CDataFrame ...
+       
+      - _viderBuffer :_
+        - Appellation : viderBuffer() (PS : fonction destinée pour aérer d'autres fonctions, ne s'appelle pas autrement)
+        - Description : Permet de vider le buffer, utile lors de l'utilisation de fonctions liées au CDF
+        - Paramètre :
+          Aucun
+        - Retourne : Rien
+          
+
