@@ -128,6 +128,95 @@
           3. Titre de la nouvelle colonne à ajouter dans le CDataFrame
           4. Position dans le CDataFrame auquelle ajouter la nouvelle colonne 
         - Retourne : Rien
+
+      - _delete_cdataframe :_
+        - Appellation : delete_cdataframe(** CDataFrame)
+        - Description : Permet de supprimer un CDataframe, tout en le désalouant intégralement ( colonne par colonne, maillon par maillon...)
+        - Paramètre :
+          1. Double pointeur du CDataFrame à supprimer
+        - Retourne : Rien
+       
+      - _delete_column_cdatafram :_
+        - Appellation : delete_column_cdatafram(*CDataFrame , *char(nom de la colonne) )
+        - Description : Permet de supprimer une colonne dans un CDataFrame avec son nom
+        - Paramètre :
+          1. Pointeur sur le CDataFrame à étudier
+          2. Pointeur de type char sur le nom de la colonne à supprimer
+        - Retourne : Rien  ( ou affiche 'La colonne n'a pas été trouvé' si aucun nom ne corespondait aux colonnes dans le CDF )
+       
+      - _get_cdataframe_cols_size :_
+        - Appellation : get_cdataframe_cols_size(*CDataFrame)
+        - Description : Permet de connaitre le nombre de colonne présentes dans un CDataFrame
+        - Paramètre :
+          1. Pointeur sur le CDataFrame à étudier
+        - Retourne : Un entier, nombre de colonnes présentes dans le CDataFrame passé en paramètre
+          
+      - _get_cdataframe_nb_lignes :_
+        - Appellation : get_cdataframe_nb_lignes(*CDataFrame )
+        - Description : Permet de connaitre le nombre de ligne présentes dans un CDataFrame ( nombre de ligne de la colonne la plus remplis )
+        - Paramètre :
+          1. Pointeur sur le CDataFrame à étudier
+        - Retourne : Un entier, nombre de ligne du CDataFrame passé en paramètre
+       
+      - _insert_values_cdataframe :_
+        - Appellation : insert_values_cdataframe(*CDataFrame, *titre le la colonne)
+        - Description : Permet d'insérer tout type de valeur dans un CDataFrame, dans la colonne spécifié par l'utilisateur. Si le nom de la colonne n'existe pas, la fonction en créée une nouvelle. De plus l'utilisateur peux choisir le la position ou insérer la valeur dans la colonne ( pos '-1' pour l'insérer à la fin ).
+        - Paramètre :
+          1. Pointeur sur le CDataFrame auquel ajouter une valeur
+          2. Pointeur sur le nom de la colonne auquelle l'utilisateur veut ajouter une valeur
+        - Retourne : Rien
+       
+      - _print_cdataframe :_
+        - Appellation : print_cdataframe(*CDataFrame, colonne_début, colonne_fin, ligne_début, int ligne_fin)
+        - Description : Permet d'afficher un CDataFrame sur un interval de colonnes et de ligne donné par l'utilisateur
+        - Paramètre :
+          1. Pointeur sur le CDataFrame à afficher
+          2. Entier spécifiant la colonne à partir de laquelle commencer l'affichage
+          3. Entier spécifiant la colonne à laquelle terminer l'affichage
+          4. Entier spécifiant la ligne à partir de laquelle commencer l'affichage
+          5. Entier spécifiant la ligne à laquelle terminer l'affichage
+        - Retourne : Rien
+
+      - _print_name_col_cdataframe :_
+        - Appellation : print_name_col_cdataframe(* CDataFrame, colonne_début, colonne_fin)
+        - Description : Permet d'afficher tous les noms de colonnes sur un interval donné par l'utilisateur
+        - Paramètre :
+          1. Pointeur sur le CDataFrame à étudier
+          2. Entier spécifiant l'indice de la colonne à partir duquel commencer l'affichage des noms des colonnes
+          3. Entier spécifiant l'indice de la colonne à laquelle terminer l'affichage des noms de colonnes
+        - Retourne : Rien
+
+      - _rename_col :_
+        - Appellation : rename_col(* CDataFrame, *titre de la colonne)
+        - Description : Permet de renomer une colonne dans un CDataFrame
+        - Paramètre :
+          1. Pointeur sur le CDataFrame auquel renomer une colonne
+          2. Pointeur sur le nom de la colonne à aller chercher pour être renommée
+        - Retourne : Rien
+       
+      - _insert_ligne_cdataframe :_
+        - Appellation : insert_ligne_cdataframe(* CDataFrame)
+        - Description : Permet de créer et insérer une ligne dans un CDataFrame à un indice donné. La ligne peut-être ensuite remplie par l'utilisateur colonne par colonne. Si l'indice donnée est plus grand que le nombre de lignes déja présentes, la fonction l'insère à la fin.
+        - Paramètre :
+          1. Pointeur sur le CDataFrame auquel ajouter une ligne
+        - Retourne : Rien
+
+      - _nb_occu_value_CD :_
+        - Appellation : nb_occu_value_CD(* CDataFrame, *valeur à rechercher)
+        - Description : Permet de chercher le nombre d'occurence d'une valeur dans un CDataFrame, toute ligne et colonne confondues
+        - Paramètre :
+          1. Pointeur sur le CDataFrame à étudier
+          2. Pointeur sur la valeur (de n'importe quel type) à recherche dans le CDataFrame
+        - Retourne : Entier donnant le nombre d'occurence de la valeur passée en paramètre
+
+      - _acces_value_CDataFrame :_
+        - Appellation : acces_value_CDataFrame(* CDataFrame, position_colonne, position_ligne)
+        - Description : Permet d'aller remplacer une valeur aux indices donnés par l'utilisateur dans un CDataFrame
+        - Paramètre :
+          1. Pointeur sur le CDataFrame auquel remplacer une valeur
+          2. Entier spécifiant la colonne de la valeur à remplacer
+          3. Entier spécifiant la ligne de la valeur à remplacer
+        - Retourne : Rien
           
 
       
