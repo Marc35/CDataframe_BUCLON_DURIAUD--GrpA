@@ -5,7 +5,7 @@
  * 1 - Creer une colonne
  * 2 - Insérer une valeur dans une colonne
  * 3 - Supprimer une colonne
- * 4 - Convertir une valeur d'une colonne en string
+ * 4 - Convertir une valeur d'une colonne en INT
  * 5 - Afficher les valeurs d'une colonne
  * 6 - Connaitre le nombres d'occurences d'une valeur donnée dans la conlonne
  * 7 - Connaitre la valeur rangé a un indice donné dans une colonne
@@ -24,11 +24,11 @@ void prog_test()
     char titre_fichier[100];
     int choice=-1, choice_1, choice_2;
     char* title = (char*) malloc(50 * sizeof(char));
-    char new_value[50];
+    int new_value;
     printf("Hello word 2");
     COLUMN * test = NULL;
     CDATAFRAME * test_cdf = NULL;
-    ENUM_TYPE cdfType[] = {INT, FLOAT, CHAR, STRING};
+    ENUM_TYPE cdfType[] = {INT, FLOAT, CHAR, INT};
     while (choice != 0) {
         printf("\n\nDans quelle catégorie de fonction voulez vous aller ? \n => Entrez '1' pour accéder aux fonctions en rapport aux colonnes\n => Entrez '2' pour les fonction en rapport au CDataFrame\n => Entrez '0' pour sortir du programme de test \n\n Valeur entree  :  \n");
         scanf("%d", &choice);
@@ -37,31 +37,31 @@ void prog_test()
         switch (choice) {
             case 1:
                 while(choice_1 !=0){
-                    printf("\n\nQuelle fonction voulez vous tester ? \n => Entrez '1' pour creer une colonne \n => Entrez '2' pour inserer une valeur dans la colonne precedemment creee \n => Entrez '3' pour supprimer la colonne precedement creee \n => Entrez '4' pour convertir une valeur d'une colonne en string \n => Entrez '5' pour afficher les valeurs d'une colonne \n => Entrez '6' pour afficher le nombre d'occurence d'une valeur dans une colonne \n => Entrez '7' pour connaitre la valeur a un indice donné dans la colonne \n => Entrez '8' pour afficher le nombre de valeur au dessus d'une valeur donnee dans une colonne \n => Entrez '9' pour afficher le nombre de valeur en dessous d'une valeur donnee dans une colonne \n => Entrez '8' pour insérer une nouvelle colonne au CDataFrame \n => Entrez '0' pour retourner au menu principal \n\n Valeur entree  :  \n");
+                    printf("\n\nQuelle fonction voulez vous tester ? \n => Entrez '1' pour creer une colonne \n => Entrez '2' pour inserer une valeur dans la colonne precedemment creee \n => Entrez '3' pour supprimer la colonne precedement creee \n => Entrez '4' pour convertir une valeur d'une colonne en INT \n => Entrez '5' pour afficher les valeurs d'une colonne \n => Entrez '6' pour afficher le nombre d'occurence d'une valeur dans une colonne \n => Entrez '7' pour connaitre la valeur a un indice donné dans la colonne \n => Entrez '8' pour afficher le nombre de valeur au dessus d'une valeur donnee dans une colonne \n => Entrez '9' pour afficher le nombre de valeur en dessous d'une valeur donnee dans une colonne \n => Entrez '8' pour insérer une nouvelle colonne au CDataFrame \n => Entrez '0' pour retourner au menu principal \n\n Valeur entree  :  \n");
                     scanf("%d", &choice_1);
                     switch (choice_1) {
                        case 1:
                            printf("\nEntrez le nom de la colonne que vous voulez creer : ");
                            scanf(" %s", title);
-                           test = create_column(STRING, title);
+                           test = create_column(INT, title);
                            printf("\nLa colonne a bien ete creee  ! \n");
                            break;
                        case 2:
                            if (test == NULL)
                            {
                                printf("Vous n'avez créer de colonne le programme va donc en créer une\n");
-                               test = create_column(STRING, "colonne de remplacement");
+                               test = create_column(INT, "colonne de remplacement");
                            }
                            printf("\nEntrez la valeur que vous souhaitez ajouter a la colonne precedemment creee \n Valeur a ajouter : ");
-                           scanf(" %s", new_value);
-                           insert_value(test, new_value, -1);
+                           scanf(" %d", &new_value);
+                           insert_value(test, &new_value, -1);
                            printf("La valeur a bien ete ajoutee ! \n\n");
                            break;
                        case 3:
                            if (test == NULL)
                            {
                                printf("Vous n'avez créer de colonne le programme va donc en créer une avant de lma supprimer");
-                               test = create_column(STRING, "colonne de remplacement");
+                               test = create_column(INT, "colonne de remplacement");
                            }
                            printf("\nLa colonne precedemment creee va etre supprimee !");
                            printf("\n \n Etat du pointeur de la colonne : %p\n", test);
@@ -72,8 +72,8 @@ void prog_test()
                        case 4:
                            if(test == NULL){
                                printf("Vous n'avez créer de colonne le programme va donc en créer une avant de la rechercher");
-                               test = create_column(STRING, "colonne de remplacement");
-                               insert_value(test, new_value, -1);
+                               test = create_column(INT, "colonne de remplacement");
+                               insert_value(test, &new_value, -1);
                            }
                            int val_num = 0;
                            do {
@@ -89,8 +89,8 @@ void prog_test()
                        case 5:
                            if(test == NULL){
                                printf("Vous n'avez créer de colonne le programme va donc en créer une avant de la rechercher");
-                               test = create_column(STRING, "colonne de remplacement");
-                               insert_value(test, new_value, -1);
+                               test = create_column(INT, "colonne de remplacement");
+                               insert_value(test, &new_value, -1);
                            }
                            printf("\nAffichage de la colonne :\n");
                            print_col(test);
@@ -98,8 +98,8 @@ void prog_test()
                        case 6:
                            if(test == NULL){
                                printf("Vous n'avez créer de colonne le programme va donc en créer une avant de la rechercher");
-                               test = create_column(STRING, "colonne de remplacement");
-                               insert_value(test, new_value, -1);
+                               test = create_column(INT, "colonne de remplacement");
+                               insert_value(test, &new_value, -1);
                            }
                            int val;
                            printf("Quelle valeur voulez vous rechercher ??\n");
@@ -110,8 +110,8 @@ void prog_test()
                        case 7:
                            if(test == NULL){
                                printf("Vous n'avez créer de colonne le programme va donc en créer une avant de la rechercher");
-                               test = create_column(STRING, "colonne de remplacement");
-                               insert_value(test, new_value, -1);
+                               test = create_column(INT, "colonne de remplacement");
+                               insert_value(test, &new_value, -1);
                            }
                            int pos=-1;
                            printf("De quel indice de la colonne boulez vous connaitre la valeur ?\n");
@@ -122,8 +122,8 @@ void prog_test()
                        case 8:
                            if(test == NULL){
                                printf("Vous n'avez créer de colonne le programme va donc en créer une avant de la rechercher");
-                               test = create_column(STRING, "colonne de remplacement");
-                               insert_value(test, new_value, -1);
+                               test = create_column(INT, "colonne de remplacement");
+                               insert_value(test, &new_value, -1);
                            }
                            printf("A partir de quelle valeur voules-vous rechercher les valeurs suppérieurs ?\n");
                            int nb_vals_supp;
@@ -134,8 +134,8 @@ void prog_test()
                        case 9:
                            if(test == NULL){
                                printf("Vous n'avez créer de colonne le programme va donc en créer une avant de la rechercher");
-                               test = create_column(STRING, "colonne de remplacement");
-                               insert_value(test, new_value, -1);
+                               test = create_column(INT, "colonne de remplacement");
+                               insert_value(test, &new_value, -1);
                            }
                            printf("A partir de quelle valeur voules-vous rechercher les valeurs inférieures ?\n");
                            int nb_vals_inf;
@@ -146,8 +146,8 @@ void prog_test()
                         case 10:
                             if(test == NULL){
                                 printf("Vous n'avez créer de colonne le programme va donc en créer une avant de la rechercher");
-                                test = create_column(STRING, "colonne de remplacement");
-                                insert_value(test, new_value, -1);
+                                test = create_column(INT, "colonne de remplacement");
+                                insert_value(test, &new_value, -1);
                             }
                             int pos_value;
                             printf("Quelle est la position de la valeur que vous souhaité supprimer ?(la première valeur est a la position 0)\n");
@@ -156,6 +156,14 @@ void prog_test()
                                 printf("suppréssion bien éffectuée\n");
                             else
                                 printf("Il n'y a pas assez de valeur dans la colonne\n");
+                            break;
+                        case 11:
+                            if(test == NULL){
+                                printf("Vous n'avez créer de colonne le programme va donc en créer une avant de la rechercher\n");
+                                test = create_column(INT, "colonne de remplacement");
+                                insert_value(test, &new_value, -1);
+                            }
+                            print_col_by_index(test);
                             break;
                        case 0:
                            printf("Retour au menu principal !\n");
@@ -247,7 +255,7 @@ void prog_test()
                             char titre_nv_col[100];
                             printf("Donnez le titre de la colonne que vous souhaitez ajouter au CDataFrame : \n");
                             scanf(" %s", titre_nv_col);
-                            ENUM_TYPE type_nv_col = choose_type_col();
+                            ENUM_TYPE type_nv_col = choose_type_col(1)[0];
                             printf("Donnez la position auquelle vous souhaitez ajouter la colonne : \n");
                             int pos_nb_col;
                             scanf("%d", &pos_nb_col);
@@ -372,7 +380,7 @@ void prog_test()
                             printf("Quel est le nom du fichier que vous voulez charger ?\n");
                             scanf(" %s", titre_fichier);
                             printf("g scanf\n");
-                            test_cdf = load_from_csv(titre_fichier, cdfType, 4);
+                            test_cdf = load_from_csv(titre_fichier);
                             if (test_cdf != NULL)
                                 printf("Récupération terminée\n");
                             else
