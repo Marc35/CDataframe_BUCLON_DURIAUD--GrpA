@@ -222,7 +222,10 @@ void printf_cdf_by_index(CDATAFRAME*cdf, int col_deb, int col_fin)
     MAILLON *cpt = cdf->head;
     for (int k=0; k < col_fin; k++)
     {
-        sort(cpt->data, 0);
+        int ordre_trie;
+        printf("Voulez-vous trirez la colonne [%s] de manière croissante(0) ou décroissante(1) ?\n", cpt->data->titre);
+        scanf(" %d", &ordre_trie);
+        sort(cpt->data, ordre_trie);
         cpt = cpt->next;
     }
 
@@ -597,8 +600,12 @@ void print_col_by_index(COLUMN *col)
         printf("Cette colonne ne possède pas d'index\n");
         return;
     }
-    if (col->valid_index != 1)
-        sort(col, 0);
+    if (col->valid_index != 1) {
+        int ordre_tri;
+        printf("Voulez vous trier dans l'ordre croissant(0) ou décroissant(1) ?\n");
+        scanf(" %d", &ordre_tri);
+        sort(col, ordre_tri);
+    }
     for (int i=0; i < col->TL; i++)
     {
         char str[50];
