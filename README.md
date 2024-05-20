@@ -112,10 +112,10 @@
    -> Pour implémenter les fonctions du CDataFrame, nous avons utilisé toutes les fonction déclarés dans liste.h, et données dans la consigne du projet. 
 
     - _create_cdataframe :_
-        - Appellation : create_cdataframe(ENUM_TYPE type, nb_colonnes)
+        - Appellation : create_cdataframe(ENUM_TYPE *type, nb_colonnes)
         - Description : Retourne un pointeur sur un CDataFrame personnalisé par l'utilisateur (nb de colonne, position, noms des colonnes, types et valeurs ...)
         - Paramètre :
-          1. Type stocké dans les premières colonnes créés dans le CDataFrame
+          1. Pointeur sur le type stocké dans les premières colonnes créés dans le CDataFrame
           2. Nombre de colonne à créer pour initialiser le CDataFrame, basé sur le type demande ci-dessus
         - Retourne : Un pointeur sur le CDataFrame créé par l'utilisateur.
           
@@ -175,6 +175,15 @@
           3. Entier spécifiant la colonne à laquelle terminer l'affichage
           4. Entier spécifiant la ligne à partir de laquelle commencer l'affichage
           5. Entier spécifiant la ligne à laquelle terminer l'affichage
+        - Retourne : Rien
+     
+   - _print_cdf_by_index:_
+        - Appellation : print_cdf_by_index(*CDataFrame, colonne_début, colonne_fin, ligne_début, int ligne_fin)
+        - Description : Permet d'afficher un CDataFrame sur un interval de colonne donné par l'utilisateur, avec les colonnes étant triées 
+        - Paramètre :
+          1. Pointeur sur le CDataFrame à afficher
+          2. Entier spécifiant la colonne à partir de laquelle commencer l'affichage
+          3. Entier spécifiant la colonne à laquelle terminer l'affichage
         - Retourne : Rien
 
     - _print_name_col_cdataframe :_
@@ -242,26 +251,24 @@
           2. Entier spécifiant l'indice de la ligne à supprimer
         - Retourne : Le nombre de valeur supprimées
 
-    - _nb_sup_value_CD :_
-        - Appellation : nb_sup_value_CD(*CDataFrame, *valeur à comparer)
-        - Description : Permet de donner le nombre de valeur supérieur à une valeur de n'importe quel type spécifié en paramètre dans un CDataFrame, spécifié également en paramètre
+    - _void sort :_
+        - Appellation : void sort(*colonne, )
+        - Description : Permet de trier les éléments d'une colonne dans l'ordre voulus
         - Paramètre :
-          1. Pointeur sur le CDataFrame à étudier
-          2. Pointeur (de n'importe quel type) sur la valeur à comparer
-        - Retourne : Entier spécifiant le nombre de valeurs, supérieur à celle entrée en paramètre, trouvées dans le CDataFrame   
+          1. Pointeur sur la colonne à trier
+          2. Entier spécifiant
+        - Retourne : Rien
 
       
 # CDataFrame et fichiers
 1. ### **Fonction liées à l'enregistrement/exportation dans des fichiers (.CVS)**
 
     - _load_from_csv :_
-        - Appellation : load_from_csv(*nom_fichier_CDataFrame, ENUM_TYPE *dftype, taille_CDataFrame)
-        - Description : Permet d'upload un CDataFrame à partir d'un fichier CSV
+        - Appellation : load_from_csv(*nom_fichier_CDataFrame)
+        - Description : Permet d'upload un CDataFrame à partir d'un fichier CSV.
         - Paramètre :
           1. Pointeur (char) sur le nom du fichier à partir duquel upload le CDF
-          2. Pointeur (ENUM_TYPE) sur le type de valeur auquelles composer le CDataFrame
-          3. Entier spécifiant la taille (en colonne) maximum du CDataFrame
-        - Retourne : Pointeur sur le CDataFrame upload à partir du fichier donné en paramètre
+        - Retourne : Pointeur sur le CDataFrame upload à partir du nom de fichier donné en paramètre
        
     - _save_into_csv :_
         - Appellation : save_into_csv(*CDataFrame, *nom_fichier)
