@@ -1,7 +1,9 @@
 #include <stdio.h>
-#include "colonne.h"
+#include "menu.h"
 
 int main() {
-    prog_test();
+    //prog_test();
+    menu();
+
     return 0;
 }
