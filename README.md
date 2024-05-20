@@ -251,13 +251,51 @@
           2. Entier spécifiant l'indice de la ligne à supprimer
         - Retourne : Le nombre de valeur supprimées
 
-    - _void sort :_
-        - Appellation : void sort(*colonne, )
+    - _sort :_
+        - Appellation : sort(*colonne, )
         - Description : Permet de trier les éléments d'une colonne dans l'ordre voulus
         - Paramètre :
           1. Pointeur sur la colonne à trier
-          2. Entier spécifiant
+          2. Entier spécifiant l'ordre dans lequel trier la colonne
         - Retourne : Rien
+     
+      - _print_col_by_index :_
+        - Appellation : print_col_by_index(*colonne)
+        - Description : Permet d'afficher une colonne triée
+        - Paramètre :
+          1. Pointeur sur la colonne à afficher
+        - Retourne : Rien
+       
+      - _erase_index :_
+        - Appellation : erase_index(*colonne)
+        - Description : Permet d'effacer les index des valeurs de la colonne
+        - Paramètre :
+          1. Pointeur sur la colonne dont effacer les index
+        - Retourne : Rien
+       
+      - _check_index :_
+        - Appellation : check_index(*colonne)
+        - Description : Permet de connaitre si la colonne possède ou non des index (et donc qu'elle a été triée)
+        - Paramètre :
+          1. Pointeur sur la colonne à étudier
+        - Retourne : 1 si la colonne possède des index, 0 sinon
+       
+      - _search_value_in_column :_
+        - Appellation : search_value_in_column(*colonne, *valeur_à_rechercher)
+        - Description : Permet de rechercher par la méthode de dicotomie une valeur dans une colonne
+        - Paramètre :
+          1. Pointeur sur la colonne à étudier
+          2. Pointeur de n'importe quel type sur la valeur à rechercher dans la colonne
+        - Retourne : 1 si la valeur est présente dans la colonne, 0 sinon
+       
+      - _search_value_cdf :_
+        - Appellation : search_value_cdf(*CDataFrame, *valeur_à_rechercher, ENUM_TYPE type_valeur)
+        - Description : Permet de rechercher une valeur par la méthode de dicotomie dans un CDataFrame entier
+        - Paramètre :
+          1. Pointeur sur la CDataFrame à étudier
+          2. Pointeur de n'importe quel type sur la valeur à rechercher dans le cdf
+          3. Pointeur ENUM_TYPE permettant de connaitre le type de valeur à rechercher
+        - Retourne : 1 si la valeur est présente dans le CDataFrame, 0 sinon
 
       
 # CDataFrame et fichiers
@@ -295,5 +333,41 @@
         - Paramètre :
           Aucun
         - Retourne : Rien
-          
+     
+    - _get_title :_
+        - Appellation : get_title() 
+        - Description : Permet de demander à l'utilisateur de rentrer un titre
+        - Paramètre :
+          Aucun
+        - Retourne : Un pointeur char sur le titre entré par l'utilisateur
+     
+    - _choose_type_col :_
+        - Appellation : choose_type_col(nb_colonne)
+        - Description : Permet de proposer des type à l'utilisateur pour la création de colonnes
+        - Paramètre :
+          1. Entier spécifiant le nombre de colonnes dont l'utilisateur doit choisir le type
+        - Retourne : Un pointeur sur un tableau ENUM_TYPE sdans lequel l'utilisateur à choisis les types pour ses colonnes
+
+      - _get_str_type :_
+        - Appellation : get_str_type(ENUM_TYPE type)
+        - Description : Permet de convertir n'importe quel type entré par l'utilisateur en str
+        - Paramètre :
+          1. Type ENUM_TYPE à convertir en str
+        - Retourne : Pointeur char sur le type convertis en str
+       
+      - _get_type_with_str :_
+        - Appellation : get_type_with_str(str_type)
+        - Description : Permet de convertir en un ENUM_TYPE un str rentré en paramètre
+        - Paramètre :
+          1. String à convertir en un type ENUM_TYPE
+        - Retourne : Un type ENUM_TYPE 
+       
+      - _compare_any_types:_
+        - Appellation : compare_any_types(*valeur_a, *valeur_b, ENUM_TYPE type)
+        - Description : Permet de comparer deux valeurs entrées en paramètre si celle-ci sont du même type
+        - Paramètre :
+          1. Pointeur sur la première valeur de n'importe quel type à comparer
+          2. Pointeur sur la deuxième valeur de n'importe quel type à comparer
+          3. ENUM_TYPE donnant le type des valeurs à comparer
+        - Retourne : 1 si les valeurs sont égales, 0 sinon
 
