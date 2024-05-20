@@ -31,6 +31,8 @@ typedef struct{
     ENUM_TYPE colonne_type;
     COL_TYPE **data;
     unsigned long long int *index;
+    int valid_index;
+    int sort_dir;
 }COLUMN;
 
 
