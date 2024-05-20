@@ -24,7 +24,14 @@ void acces_value_CDataFrame(CDATAFRAME* cdf, int pos_col, int pos_ligne);
 int nb_sup_value_CD(CDATAFRAME *cdf, char* value);
 int nb_inf_value_CD(CDATAFRAME *cdf, char* value);
 int suppr_ligne_CD(CDATAFRAME *cdf, int pos);
-CDATAFRAME* load_from_csv(char *file_name, ENUM_TYPE *dftype, int size);
+CDATAFRAME* load_from_csv(char *file_name);
 int save_into_csv(CDATAFRAME *cdf, char *file_name);
+void sort(COLUMN* col, int sort_dir);
+void print_col_by_index(COLUMN *col);
+void erase_index(COLUMN *col);
+int check_index(COLUMN *col);
+int search_value_in_column(COLUMN *col, void *val);
+void printf_cdf_by_index(CDATAFRAME*cdf, int col_deb, int col_fin);
+int search_value_cdf(CDATAFRAME *cdf, void *val, ENUM_TYPE type);
 
 #endif //FINALPROJECT_CD_H
