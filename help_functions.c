@@ -248,10 +248,15 @@ void inverse_sort(COLUMN *col)
 {
     if (col->index == NULL)
         return;
-    for (int i=0; i < col->TL/2; i++)
+    int deb = 0;
+    int fin = col->TL - 1;
+    int temp;
+    while(deb < fin)
     {
-        int s = col->index[i];
-        col->index[i] = col->index[col->TL - i];
-        col->index[col->TL - i] = s;
+        temp = col->index[deb];
+        col->index[deb] = col->index[fin];
+        col->index[fin] = temp;
+        deb++;
+        fin--;
     }
 }
