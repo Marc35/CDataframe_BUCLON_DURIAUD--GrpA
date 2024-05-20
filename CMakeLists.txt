@@ -15,4 +15,6 @@ add_executable(CDataframe_BUCLON_DURIAUD__GrpA_main
         main.c
         test.c
         help_functions.c
-        help_functions.h)
+        help_functions.h
+        menu.c
+        menu.h)
