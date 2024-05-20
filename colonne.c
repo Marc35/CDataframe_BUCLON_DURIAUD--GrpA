@@ -1,4 +1,5 @@
 #include "colonne.h"
+#include "help_functions.h"
 
 COLUMN *create_column(ENUM_TYPE type,char* title)
 {
@@ -13,6 +14,8 @@ COLUMN *create_column(ENUM_TYPE type,char* title)
         col->colonne_type = type;
         col->data = NULL;
         col->index = NULL;
+        col->valid_index = 0;
+        col->sort_dir = 0;
     }
     return col;
 }
@@ -26,6 +29,7 @@ int insert_value(COLUMN* col, void *value, int ind_pos)
     if (col->TL == 0)
     {
         col->data = malloc(256 * sizeof (COL_TYPE));
+        col->index = malloc(256 * sizeof (unsigned long long int));
         if (col->data == NULL)
         {
             return 0;
@@ -34,14 +38,17 @@ int insert_value(COLUMN* col, void *value, int ind_pos)
     if (col->TL == col->TP)
     {
         COL_TYPE **temp;
+        unsigned long long int *temp2;
         temp = realloc(col->data, col->TL + 256);
-        if (temp == NULL)
+        temp2 = realloc(col->index, col->TL + 256);
+        if (temp == NULL || temp2 == NULL)
         {
             return 0;
         }
         else
         {
             col->data = temp;
+            col->index = temp2;
         }
     }
     if (value == NULL)
@@ -81,9 +88,7 @@ int insert_value(COLUMN* col, void *value, int ind_pos)
                 {
                     *((float *) col->data[i]) = *((float *) col->data[i-1]);
                 }
-                printf("test0\n");
                 *((float *) col->data[ind_pos]) = *((float *) value);
-                printf("test1\n");
                 break;
             case DOUBLE:
                 col->data[col->TL] = (double *) malloc(sizeof(double));
@@ -103,6 +108,9 @@ int insert_value(COLUMN* col, void *value, int ind_pos)
                 break;
         }
     }
+    col->index[col->TL] = col->TL;
+    if (col->valid_index == 1)
+        col->valid_index = -1;
     col->TL++;
     return 1;
 }
@@ -226,40 +234,78 @@ char* scearch_value(COLUMN *col, int pos_value)
 int nb_supp_val(COLUMN *col, void *x, int is_str)
 {
     int nb=0;
-    char str[5];
-    char val[5];
+    char str[50];
+    char val[50];
+    COL_TYPE **valeur=NULL, **vval = NULL;
+    valeur = malloc(sizeof (COL_TYPE));
+    vval = malloc(sizeof (COL_TYPE));
+
     if (is_str == 0)
-        convert_value(col, 0, val, 5, x);
+        convert_value(col, 0, val, 50, x);
     else
         strcpy(val, x);
-    for (int i=0; i<col->TL; i++)
+
+    if (is_comparable(val, col->colonne_type) == 1)     // On teste si les 2 types des2 valeurs sont comparables (on va pas comparer des int avec des str)
     {
-        convert_value(col, i, str, 5, NULL);
-        if (strcmp(str, val) > 0)
-        {
-            nb++;
+        for (int i = 0; i < col->TL; i++) {
+            convert_value(col, i, str, 50, NULL);       // On converti la valeur de la colonne en str
+            cast_val(DOUBLE, valeur, str);       // On converti un pointeur en double qui pointe sur cette valeur
+            cast_val(DOUBLE, vval, val);        // On fait la meme chose pour la valeur recherchée
+            if (*(double *)valeur[0] > *(double *)vval[0]) {    // On convertie les valeurs elles meme en doubles (type le plus grand)
+                nb++;
+            }
         }
     }
+    if (is_comparable(val, col->colonne_type) == -1)
+    {
+        for (int i=0; i < col->TL; i++) {
+            convert_value(col, i, str, 50, NULL);
+            if (strcmp(str, x) == 1)
+            {
+                nb ++;
+            }
+        }
+    }
+
     return nb;
 }
 
 int nb_inf_val(COLUMN *col, void *x, int is_str)
 {
     int nb=0;
-    char str[5];
-    char val[5];
+    char str[50];
+    char val[50];
+    COL_TYPE **valeur=NULL, **vval = NULL;
+    valeur = malloc(sizeof (COL_TYPE));
+    vval = malloc(sizeof (COL_TYPE));
+
     if (is_str == 0)
-        convert_value(col, 0, val, 5, x);
+        convert_value(col, 0, val, 50, x);
     else
         strcpy(val, x);
-    for (int i=0; i<col->TL; i++)
+
+    if (is_comparable(val, col->colonne_type) == 1)     // On teste si les 2 types des2 valeurs sont comparables (on va pas comparer des int avec des str)
     {
-        convert_value(col, i, str, 5, NULL);
-        if (strcmp(str, val) < 0)
-        {
-            nb++;
+        for (int i = 0; i < col->TL; i++) {
+            convert_value(col, i, str, 50, NULL);       // On converti la valeur de la colonne en str
+            cast_val(DOUBLE, valeur, str);       // On converti un pointeur en double qui pointe sur cette valeur
+            cast_val(DOUBLE, vval, val);        // On fait la meme chose pour la valeur recherchée
+            if (*(double *)valeur[0] < *(double *)vval[0]) {    // On convertie les valeurs elles meme en doubles (type le plus grand)
+                nb++;
+            }
         }
     }
+    if (is_comparable(val, col->colonne_type) == -1)
+    {
+        for (int i=0; i < col->TL; i++) {
+            convert_value(col, i, str, 50, NULL);
+            if (strcmp(str, x) == -1)
+            {
+                nb ++;
+            }
+        }
+    }
+
     return nb;
 }
 
@@ -280,7 +326,10 @@ int suppr_val_col(COLUMN *col, int pos)
         }
         free(col->data[col->TL-1]);
         col->TL--;
+        col->valid_index = 0;
         return 1;
     }
 }
+
+
 
