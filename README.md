@@ -370,4 +370,8 @@
           2. Pointeur sur la deuxième valeur de n'importe quel type à comparer
           3. ENUM_TYPE donnant le type des valeurs à comparer
         - Retourne : 1 si les valeurs sont égales, 0 sinon
+        - 
+
+
+        test
 
